@@ -1,4 +1,4 @@
-const fs = require('fs')
+let fs = require('fs')
 let A = [2, 31, 1, 4, 632, 16, -6, 0, 24, 931]
 let B = [
   768, 31, 2316, 6123, 876, 60, 6, 31, 352, 254385, 2441, 5, 86, 8754, 214,
@@ -50,10 +50,15 @@ if (ia < ib) {
     ib
 }
 console.log(otvet)
-fs.readFile('otvet', 'utf8')
-  .then((data) => {
-    fs.writeFile('otvet', data + otvet)
-  })
-  .catch((err) => {
-    console.log('error')
-  })
+
+fs.readFile('otvet.txt', 'utf8', function (err, data) {
+  if (!err) {
+    fs.writeFile('otvet.txt', data + otvet, function (err) {
+      if (err) {
+        console.log('ошибка записи файла')
+      }
+    })
+  } else {
+    console.log('ошибка чтения файла')
+  }
+})
